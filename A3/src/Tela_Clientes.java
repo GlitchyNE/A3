@@ -12,6 +12,8 @@ public class Tela_Clientes extends JFrame {
 
     public Tela_Clientes() {
         initComponents();
+        connect();
+        listarClientes();
     }
 
   
