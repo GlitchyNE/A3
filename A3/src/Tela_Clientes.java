@@ -12,10 +12,12 @@ public class Tela_Clientes extends JFrame {
 
     public Tela_Clientes() {
         initComponents();
+        connect();
+        listarClientes();
     }
 
   
-    public void connect() {
+    private void connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/lanchonete", "root", "6gabrielnesi");
@@ -25,7 +27,7 @@ public class Tela_Clientes extends JFrame {
     }
 
    
-    public void listarClientes() {
+    private void listarClientes() {
         String sql = "SELECT * FROM clientes";
         try {
             pst = conn.prepareStatement(sql);
@@ -227,7 +229,14 @@ public class Tela_Clientes extends JFrame {
         jButtonAtualizar.addActionListener(e -> atualizarCliente());
         jButtonDeletar.addActionListener(e -> deletarCliente());
         jButtonPedidos.addActionListener(e -> {
-           
+            int selected = jTable1.getSelectedRow();
+            if (selected == -1) {
+                JOptionPane.showMessageDialog(this, "Selecione um cliente para abrir os pedidos.");
+                return;
+            }
+            int idCliente = (int) jTable1.getValueAt(selected, 0);
+            new Tela_Pedidos(idCliente, true).setVisible(true);
+            this.dispose();
         });
 
       

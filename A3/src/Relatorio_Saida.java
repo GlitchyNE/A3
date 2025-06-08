@@ -46,19 +46,33 @@ public class Relatorio_Saida extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }                     
 
     
     public static void main(String args[]) {
        
-        java.awt.EventQueue.invokeLater(() -> new Relatorio_Saida().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> Relatorio_Saida.getInstancia().setVisible(true));
+    }
+    
+    public void registrarSaida(String mensagem) {
+        String dataHora = java.time.LocalDateTime.now().toString().replace('T', ' ');
+        jTextArea1.append("\n[" + dataHora + "] " + mensagem);
     }
 
-    // Variables declaration - do not modify                     
+    public static Relatorio_Saida instancia;
+
+    public static Relatorio_Saida getInstancia() {
+        if (instancia == null) {
+            instancia = new Relatorio_Saida();
+        }
+        return instancia;
+    }
+
+                       
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    // End of variables declaration                   
+                     
 
     
 }

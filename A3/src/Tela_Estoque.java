@@ -17,7 +17,7 @@ public class Tela_Estoque extends javax.swing.JFrame {
         return DriverManager.getConnection(url, user, password);
     }
 
-    // Carregar dados na tabela
+  
     private void carregarDados() {
         try (Connection conn = conectar()) {
             String sql = "SELECT * FROM produtos";
@@ -237,7 +237,7 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
         pack();
     }
     
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
+    private void jTable1MouseClicked(@SuppressWarnings("unused") java.awt.event.MouseEvent evt) {
          int linha = jTable1.getSelectedRow();
         if (linha >= 0) {
             jTextField1.setText(jTable1.getValueAt(linha, 1).toString());
@@ -247,7 +247,7 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
         }
     }
         //cadastro dos produtos
-     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+     private void jButton1ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
         String nome = jTextField1.getText();
         String categoria = jTextField4.getText();
         double preco = Double.parseDouble(jTextField2.getText());
@@ -272,7 +272,7 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
     }
 
     // Atualizar Produto
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton2ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
         int linha = jTable1.getSelectedRow();
         if (linha >= 0) {
             int id = (int) jTable1.getValueAt(linha, 0);
@@ -318,6 +318,15 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
                         " | Nova quantidade: " + quantidade
                     );
                 }
+                // Registra também se a quantidade diminuiu
+                if (quantidade < quantidadeAnterior) {
+                    Relatorio_Saida.getInstancia().registrarSaida(
+                        "Produto atualizado: Nome anterior: " + nomeAnterior +
+                        " | Nome novo: " + nome +
+                        " | Quantidade anterior: " + quantidadeAnterior +
+                        " | Nova quantidade: " + quantidade
+                    );
+                }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + e.getMessage());
             }
@@ -327,10 +336,12 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
     }
 
     // Apagar Produto
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton3ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
         int linha = jTable1.getSelectedRow();
         if (linha >= 0) {
             int id = (int) jTable1.getValueAt(linha, 0);
+            String nome = jTextField1.getText();
+            int quantidade = Integer.parseInt(jTextField6.getText());
 
             int confirm = JOptionPane.showConfirmDialog(null, "Deseja realmente apagar esse produto?", "Confirmação", JOptionPane.YES_NO_OPTION);
 
@@ -342,6 +353,9 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
                     stmt.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Produto apagado com sucesso!");
                     carregarDados();
+                    Relatorio_Saida.getInstancia().registrarSaida(
+    "Produto removido: Nome: " + nome + " | Quantidade removida: " + quantidade
+);
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Erro ao apagar: " + e.getMessage());
                 }
