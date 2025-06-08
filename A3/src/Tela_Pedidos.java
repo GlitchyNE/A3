@@ -58,14 +58,14 @@ public class Tela_Pedidos extends javax.swing.JFrame {
          ResultSet rs = pstmt.executeQuery()) {
 
         while (rs.next()) {
-            int idPedido   = rs.getInt("idPedido");
+            int pedidoId   = rs.getInt("idPedido");
             int idCliente  = rs.getInt("idCliente");
             
             // Atualiza o valor total ANTES de mostrar na tabela
-            atualizarValorTotalDoPedido(idPedido);
+            atualizarValorTotalDoPedido(pedidoId);
 
             // Agora busca o valor atualizado
-            double valor   = obterValorPedido(idPedido, conn);
+            double valor   = obterValorPedido(pedidoId, conn);
             String status  = rs.getString("statusPedido");
 
             // Buscar o nome do cliente com base no ID
@@ -75,7 +75,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             }
 
             modelo.addRow(new Object[] {
-                idPedido,
+                pedidoId,
                 nomeCliente,
                 valor,
                 status
@@ -98,7 +98,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
         return;
     }
 
-    int idPedido = (int) jTable1.getValueAt(linhaSelecionada, 0);
+    int idPedidoSelecionado = (int) jTable1.getValueAt(linhaSelecionada, 0);
     String novoStatus = (String) jComboBox1.getSelectedItem();
 
     if (novoStatus == null || novoStatus.trim().isEmpty() || novoStatus.equals("Selecione o Status")) {
@@ -110,7 +110,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
         String sql = "UPDATE pedidos SET statusPedido = ? WHERE idPedido = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, novoStatus);
-        stmt.setInt(2, idPedido);
+        stmt.setInt(2, idPedidoSelecionado);
 
         int linhasAfetadas = stmt.executeUpdate();
         stmt.close();
@@ -218,11 +218,11 @@ public class Tela_Pedidos extends javax.swing.JFrame {
         return;
     }
 
-    int idPedido = (int) jTable1.getValueAt(linhaSelecionada, 0); // coluna 0 = idPedido
+    int idPedidoSelecionado = (int) jTable1.getValueAt(linhaSelecionada, 0); // coluna 0 = idPedido
 
     int confirmacao = JOptionPane.showConfirmDialog(
         this,
-        "Tem certeza que deseja excluir o pedido #" + idPedido + "?",
+        "Tem certeza que deseja excluir o pedido #" + idPedidoSelecionado + "?",
         "Confirmação",
         JOptionPane.YES_NO_OPTION
     );
@@ -232,14 +232,14 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             // Primeiro, exclui os itens associados ao pedido (evita violação de integridade referencial)
             String sqlItens = "DELETE FROM itens_pedido WHERE idPedido = ?";
             PreparedStatement stmtItens = conn.prepareStatement(sqlItens);
-            stmtItens.setInt(1, idPedido);
+            stmtItens.setInt(1, idPedidoSelecionado);
             stmtItens.executeUpdate();
             stmtItens.close();
 
             // Agora exclui o pedido em si
             String sqlPedido = "DELETE FROM pedidos WHERE idPedido = ?";
             PreparedStatement stmtPedido = conn.prepareStatement(sqlPedido);
-            stmtPedido.setInt(1, idPedido);
+            stmtPedido.setInt(1, idPedidoSelecionado);
             int linhasAfetadas = stmtPedido.executeUpdate();
             stmtPedido.close();
 
@@ -498,7 +498,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
     int linhaSelecionada = jTable1.getSelectedRow();
-    int idPedido;
+    int novoIdPedido;
     int idCliente;
 
     if (linhaSelecionada == -1) {
@@ -513,17 +513,17 @@ public class Tela_Pedidos extends javax.swing.JFrame {
         }
 
         // Cria o pedido 
-        idPedido = criarPedidoComValorZero(idCliente);
-        if (idPedido < 0) {
+        novoIdPedido = criarPedidoComValorZero(idCliente);
+        if (novoIdPedido < 0) {
             // Se falhar ao criar, aborta a função
             return;
         }
 
     } else {
         // Linha selecionada → pegar idPedido e idCliente da tabela
-        idPedido  = (int) jTable1.getValueAt(linhaSelecionada, 0); // coluna 0 = ID_Pedido
-        // Agora busca o idCliente a partir do idPedido
-        idCliente = obterIdClientePorPedido(idPedido);
+        novoIdPedido  = (int) jTable1.getValueAt(linhaSelecionada, 0); // coluna 0 = ID_Pedido
+        // Agora busca o idCliente a partir do novoIdPedido
+        idCliente = obterIdClientePorPedido(novoIdPedido);
         if (idCliente < 0) {
             JOptionPane.showMessageDialog(this,
                 "Erro ao obter ID de cliente para o pedido selecionado.",
@@ -534,7 +534,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
 
 
     
-    new Tela_PopularPedido(idPedido, idCliente).setVisible(true);
+    new Tela_PopularPedido(novoIdPedido, idCliente).setVisible(true);
     this.dispose();
 }
     public static void main(String args[]) {
@@ -613,15 +613,15 @@ public class Tela_Pedidos extends javax.swing.JFrame {
 
         ResultSet rs = pstmt.executeQuery();
         while (rs.next()) {
-            int idPedido   = rs.getInt("idPedido");
+            int idPedidoLocal   = rs.getInt("idPedido");
             int idCliente  = rs.getInt("idCliente");
-            atualizarValorTotalDoPedido(idPedido);
-            double valor   = obterValorPedido(idPedido, conn);
+            atualizarValorTotalDoPedido(idPedidoLocal);
+            double valor   = obterValorPedido(idPedidoLocal, conn);
             String statusPedido  = rs.getString("statusPedido");
             String nomeCli = obterNomeCliente(idCliente);
             if (nomeCli == null) nomeCli = "";
             modelo.addRow(new Object[] {
-                idPedido,
+                idPedidoLocal,
                 nomeCli,
                 valor,
                 statusPedido

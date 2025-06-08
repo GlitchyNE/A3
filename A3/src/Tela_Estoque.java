@@ -247,7 +247,8 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
         }
     }
         //cadastro dos produtos
-     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    @SuppressWarnings("UseSpecificCatch")
+     private void jButton1ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
     try {
         String nome = jTextField1.getText();
         String categoria = jTextField4.getText();
