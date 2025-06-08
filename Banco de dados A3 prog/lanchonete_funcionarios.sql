@@ -16,28 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clientes`
+-- Table structure for table `funcionarios`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `funcionarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clientes` (
-  `idCliente` int NOT NULL AUTO_INCREMENT,
-  `nomeCliente` varchar(60) NOT NULL,
-  `cpfCliente` varchar(15) NOT NULL,
-  `tefCliente` int NOT NULL,
-  PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `funcionarios` (
+  `idFuncionario` int NOT NULL AUTO_INCREMENT,
+  `nomeFuncionario` varchar(60) NOT NULL,
+  `cargoFuncionario` varchar(30) NOT NULL,
+  `loginFuncionario` varchar(20) NOT NULL,
+  `senhaFuncionario` varchar(20) NOT NULL,
+  PRIMARY KEY (`idFuncionario`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `funcionarios`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES `funcionarios` WRITE;
+/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES (1,'Gabriel Nesi','Administrador','gabrielnesi11','55gabrielnesi'),(2,'Blander Melo','Administrador','blandermelo60','80blander@'),(3,'Marcos de Aquino','Administrador','marcos6078','@marcos3029');
+/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-02 18:33:05
+-- Dump completed on 2025-06-08 19:33:21

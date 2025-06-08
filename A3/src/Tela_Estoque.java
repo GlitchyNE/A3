@@ -369,7 +369,7 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
     }
 
 
-    // Variables declaration - do not modify                     
+                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -384,5 +384,5 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField6;
-    // End of variables declaration                   
+                      
 }

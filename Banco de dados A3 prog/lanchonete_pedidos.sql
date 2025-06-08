@@ -25,16 +25,12 @@ DROP TABLE IF EXISTS `pedidos`;
 CREATE TABLE `pedidos` (
   `idPedido` int NOT NULL AUTO_INCREMENT,
   `idCliente` int NOT NULL,
-  `idProduto` int NOT NULL,
-  `qntdProduto` int NOT NULL,
   `valorPedido` float NOT NULL,
   `statusPedido` varchar(30) NOT NULL,
   PRIMARY KEY (`idPedido`),
   KEY `idCliente_idx` (`idCliente`),
-  KEY `idProduto_idx` (`idProduto`),
-  CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`),
-  CONSTRAINT `idProduto` FOREIGN KEY (`idProduto`) REFERENCES `produtos` (`idProduto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-02 18:33:05
+-- Dump completed on 2025-06-08 19:33:20

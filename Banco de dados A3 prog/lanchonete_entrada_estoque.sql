@@ -16,29 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `produtos`
+-- Table structure for table `entrada_estoque`
 --
 
-DROP TABLE IF EXISTS `produtos`;
+DROP TABLE IF EXISTS `entrada_estoque`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `produtos` (
-  `idProduto` int NOT NULL AUTO_INCREMENT,
-  `nomeProduto` varchar(50) NOT NULL,
-  `catProduto` varchar(40) NOT NULL,
-  `precoProduto` int NOT NULL,
-  `qntdProduto` int NOT NULL,
-  PRIMARY KEY (`idProduto`)
+CREATE TABLE `entrada_estoque` (
+  `idEntrada_Estoque` int NOT NULL AUTO_INCREMENT,
+  `dataHoraEntrada` datetime NOT NULL,
+  `idProduto` int NOT NULL,
+  PRIMARY KEY (`idEntrada_Estoque`),
+  KEY `idProduto_idx` (`idProduto`),
+  CONSTRAINT `idProdutoEstoque` FOREIGN KEY (`idProduto`) REFERENCES `produtos` (`idProduto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `produtos`
+-- Dumping data for table `entrada_estoque`
 --
 
-LOCK TABLES `produtos` WRITE;
-/*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
+LOCK TABLES `entrada_estoque` WRITE;
+/*!40000 ALTER TABLE `entrada_estoque` DISABLE KEYS */;
+/*!40000 ALTER TABLE `entrada_estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-02 18:33:05
+-- Dump completed on 2025-06-08 19:33:20
