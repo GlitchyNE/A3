@@ -16,29 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `saida_estoque`
+-- Table structure for table `pedidos`
 --
 
-DROP TABLE IF EXISTS `saida_estoque`;
+DROP TABLE IF EXISTS `pedidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `saida_estoque` (
-  `idsaida_Estoque` int NOT NULL AUTO_INCREMENT,
-  `dataHoraSaida` datetime NOT NULL,
-  `idProduto` int NOT NULL,
-  PRIMARY KEY (`idsaida_Estoque`),
-  KEY `idProdutoSaida_idx` (`idProduto`),
-  CONSTRAINT `idProdutoSaida` FOREIGN KEY (`idProduto`) REFERENCES `produtos` (`idProduto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `pedidos` (
+  `idPedido` int NOT NULL AUTO_INCREMENT,
+  `idCliente` int NOT NULL,
+  `valorPedido` float NOT NULL,
+  `statusPedido` varchar(30) NOT NULL,
+  PRIMARY KEY (`idPedido`),
+  KEY `idCliente_idx` (`idCliente`),
+  CONSTRAINT `idCliente` FOREIGN KEY (`idCliente`) REFERENCES `clientes` (`idCliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `saida_estoque`
+-- Dumping data for table `pedidos`
 --
 
-LOCK TABLES `saida_estoque` WRITE;
-/*!40000 ALTER TABLE `saida_estoque` DISABLE KEYS */;
-/*!40000 ALTER TABLE `saida_estoque` ENABLE KEYS */;
+LOCK TABLES `pedidos` WRITE;
+/*!40000 ALTER TABLE `pedidos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pedidos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-08 19:33:20
+-- Dump completed on 2025-06-08 20:52:31

@@ -16,34 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `itens_pedido`
+-- Table structure for table `entrada_estoque`
 --
 
-DROP TABLE IF EXISTS `itens_pedido`;
+DROP TABLE IF EXISTS `entrada_estoque`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `itens_pedido` (
-  `idItem` int NOT NULL AUTO_INCREMENT,
-  `idPedido` int NOT NULL,
-  `idProduto` int DEFAULT NULL,
-  `quantidade` int DEFAULT NULL,
-  `valorUnitario` double DEFAULT NULL,
-  `subtotal` double DEFAULT NULL,
-  PRIMARY KEY (`idItem`),
-  KEY `itens_pedido_ibfk_1` (`idPedido`),
-  KEY `itens_pedido_ibfk_2` (`idProduto`),
-  CONSTRAINT `itens_pedido_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `pedidos` (`idPedido`),
-  CONSTRAINT `itens_pedido_ibfk_2` FOREIGN KEY (`idProduto`) REFERENCES `produtos` (`idProduto`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `entrada_estoque` (
+  `idEntrada_Estoque` int NOT NULL AUTO_INCREMENT,
+  `dataHoraEntrada` datetime NOT NULL,
+  `idProduto` int NOT NULL,
+  PRIMARY KEY (`idEntrada_Estoque`),
+  KEY `idProduto_idx` (`idProduto`),
+  CONSTRAINT `idProdutoEstoque` FOREIGN KEY (`idProduto`) REFERENCES `produtos` (`idProduto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `itens_pedido`
+-- Dumping data for table `entrada_estoque`
 --
 
-LOCK TABLES `itens_pedido` WRITE;
-/*!40000 ALTER TABLE `itens_pedido` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itens_pedido` ENABLE KEYS */;
+LOCK TABLES `entrada_estoque` WRITE;
+/*!40000 ALTER TABLE `entrada_estoque` DISABLE KEYS */;
+/*!40000 ALTER TABLE `entrada_estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-08 19:33:20
+-- Dump completed on 2025-06-08 20:52:31
