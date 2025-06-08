@@ -247,7 +247,8 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
         }
     }
         //cadastro dos produtos
-     private void jButton1ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
+     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    try {
         String nome = jTextField1.getText();
         String categoria = jTextField4.getText();
         double preco = Double.parseDouble(jTextField2.getText());
@@ -263,13 +264,12 @@ jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
             carregarDados();
-   Relatorio_Entrada.getInstancia().registrarEntrada("Um produto foi registrado, nome: " + nome + "  Quantidade: " + quantidade);
-
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
+            Relatorio_Entrada.getInstancia().registrarEntrada("Um produto foi registrado, nome: " + nome + "  Quantidade: " + quantidade);
         }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
     }
+}
 
     // Atualizar Produto
     private void jButton2ActionPerformed(@SuppressWarnings("unused") java.awt.event.ActionEvent evt) {
