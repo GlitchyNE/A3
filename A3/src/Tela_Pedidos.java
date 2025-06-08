@@ -71,7 +71,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             // Buscar o nome do cliente com base no ID
             String nomeCliente = obterNomeCliente(idCliente);
             if (nomeCliente == null) {
-                nomeCliente = ""; // evita null na tabela
+                nomeCliente = ""; 
             }
 
             modelo.addRow(new Object[] {
@@ -206,7 +206,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             "Erro ao atualizar valor do pedido: " + e.getMessage(),
             "Erro de Banco", JOptionPane.ERROR_MESSAGE);
     }
-    // Não chame carregarPedidosNaTabela() aqui para evitar recursão infinita!
+   
 }
 
     @SuppressWarnings("ConvertToTryWithResources")
@@ -474,7 +474,6 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
 
-    // Adicione o MouseListener aqui, antes do pack()
     jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
         @Override
         public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -503,7 +502,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
     int idCliente;
 
     if (linhaSelecionada == -1) {
-        // 1.A) Nenhuma linha selecionada → criar pedido novo a partir de idCliente digitado
+        //  Nenhuma linha selecionada → criar pedido novo a partir de idCliente digitado
         try {
             idCliente = Integer.parseInt(jTextPane2.getText().trim());
         } catch (NumberFormatException e) {
@@ -513,7 +512,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             return;
         }
 
-        // Cria o pedido (valorPedido = 0, status = 'Pendente') e captura o id gerado
+        // Cria o pedido 
         idPedido = criarPedidoComValorZero(idCliente);
         if (idPedido < 0) {
             // Se falhar ao criar, aborta a função
@@ -521,7 +520,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
         }
 
     } else {
-        // 1.B) Linha selecionada → pegar idPedido e idCliente da tabela
+        // Linha selecionada → pegar idPedido e idCliente da tabela
         idPedido  = (int) jTable1.getValueAt(linhaSelecionada, 0); // coluna 0 = ID_Pedido
         // Agora busca o idCliente a partir do idPedido
         idCliente = obterIdClientePorPedido(idPedido);
@@ -570,7 +569,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane2;
     private javax.swing.JTextField jTextFieldBusca;
   
-    // Adicione este método auxiliar:
+ 
     private double obterValorPedido(int idPedido, Connection conn) {
     String sql = "SELECT valorPedido FROM pedidos WHERE idPedido = ?";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -581,7 +580,7 @@ public class Tela_Pedidos extends javax.swing.JFrame {
             }
         }
     } catch (SQLException e) {
-        // Trate o erro se necessário
+      
     }
     return 0.0;
 }

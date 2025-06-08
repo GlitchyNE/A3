@@ -42,7 +42,7 @@ public class Tela_PopularPedido extends javax.swing.JFrame {
 
     System.out.println("ID do pedido recebido: " + pedidoIdRecebido);
    
-           // Configura para NÃO fechar automaticamente ao clicar no X
+          
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         // Adiciona listener para capturar o evento do botão fechar (X)
@@ -63,18 +63,18 @@ public class Tela_PopularPedido extends javax.swing.JFrame {
     int idCliente = this.clienteIdRecebido;
 
     try {
-        // 1) Ler idProduto e quantidade dos campos de texto
+        //  Ler idProduto e quantidade dos campos de texto
         int idProduto  = Integer.parseInt(jTextPane2.getText().trim());
         int quantidade = Integer.parseInt(jTextPane3.getText().trim());
 
-        // 2) Abrir conexão
+        //  Abrir conexão
         Connection conn = Tela_PopularPedido.conectarBD();
         if (conn == null) {
             JOptionPane.showMessageDialog(this, "Falha ao conectar ao banco.");
             return;
         }
 
-        // 3) Buscar valorUnitario na tabela produtos
+        //  Buscar valorUnitario na tabela produtos
         String sqlBuscaProduto = "SELECT precoProduto FROM produtos WHERE idProduto = ?";
         PreparedStatement stmtBusca = conn.prepareStatement(sqlBuscaProduto);
         stmtBusca.setInt(1, idProduto);
@@ -92,10 +92,10 @@ public class Tela_PopularPedido extends javax.swing.JFrame {
         rsProd.close();
         stmtBusca.close();
 
-        // 4) Calcular subtotal
+        //  Calcular subtotal
         double subtotal = quantidade * valorUnitario;
 
-        // 5) Inserir na tabela itens_pedido
+        //  Inserir na tabela itens_pedido
         String sqlInsert = ""
             + "INSERT INTO itens_pedido "
             + "(idPedido, idProduto, quantidade, valorUnitario, subtotal) "
@@ -201,7 +201,7 @@ private void deletarItemSelecionado() {
         JOptionPane.YES_NO_OPTION);
 
     if (confirmacao != JOptionPane.YES_OPTION) {
-        return; // Cancela a exclusão se o usuário não confirmar
+        return; 
     }
 
     // Supondo que a coluna 0 da jTable1 é idItem
@@ -400,13 +400,13 @@ private void deletarItemSelecionado() {
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        
 
-        /* Create and display the form */
+    
         java.awt.EventQueue.invokeLater(() -> new Tela_PopularPedido().setVisible(true));
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JPanel ProdutoPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

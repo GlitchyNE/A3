@@ -159,7 +159,6 @@ public class Tela_Login extends javax.swing.JFrame {
         }
     }
 
-    // Variáveis de componente
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
